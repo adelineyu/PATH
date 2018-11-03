@@ -36,4 +36,4 @@ def get_uberx_estimate(slat, slong, elat, elong):
     time = json.get('duration') / 60
     # dist = json.get('distance')
 
-    return trip_info('uberx', avg, time)
+    return Tuple.trip_info('uberx', avg, time)
