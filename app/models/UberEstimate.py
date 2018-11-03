@@ -1,10 +1,8 @@
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
-from collections import namedtuple
+import Tuple
 import requests
-import PathObject
 
-trip_info = namedtuple("Info", "option cost duration")
 
 session = Session(server_token='ZaorUL2L_CCILlRtjHBrLz93-hTPIIBJHExq4C5m')
 client = UberRidesClient(session)
@@ -29,7 +27,7 @@ def get_json_data(slat, slong, elat, elong):
     return resp.json().get('prices')[7]
 
 # returns tuple that contains name of option (uberx) and estimated price and time
-def get_trip_estimate(slat, slong, elat, elong):
+def get_uberx_estimate(slat, slong, elat, elong):
 
     json = get_json_data(slat, slong, elat, elong)
     low = json.get('low_estimate')
