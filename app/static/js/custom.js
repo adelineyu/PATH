@@ -36,8 +36,6 @@ searchBoxFrom.addListener('places_changed', function() {
         return;
     }
 
-    markerFrom.setMap(null);
-
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
@@ -52,6 +50,10 @@ searchBoxFrom.addListener('places_changed', function() {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25)
     };
+
+    if(markerFrom != null) {
+        markerFrom.setMap(null);
+    }
 
     // Create a marker for each place.
     markerFrom = new google.maps.Marker({
@@ -68,7 +70,6 @@ searchBoxFrom.addListener('places_changed', function() {
         bounds.extend(place.geometry.location);
     }
     });
-    map.fitBounds(bounds);
 });
 
 // Listen for the event fired when the user selects a prediction and retrieve
@@ -79,8 +80,6 @@ searchBoxTo.addListener('places_changed', function() {
     if (places.length == 0) {
         return;
     }
-
-    markerTo.setMap(null) = null;
 
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
@@ -97,8 +96,12 @@ searchBoxTo.addListener('places_changed', function() {
         scaledSize: new google.maps.Size(25, 25)
     };
 
+    if(markerTo != null) {
+        markerTo.setMap(null);
+    }
+
     // Create a marker for each place.
-    markersTo = new google.maps.Marker({
+    markerTo = new google.maps.Marker({
         map: map,
         icon: icon,
         title: place.name,
@@ -112,6 +115,5 @@ searchBoxTo.addListener('places_changed', function() {
         bounds.extend(place.geometry.location);
     }
     });
-    map.fitBounds(bounds);
 });
 }
