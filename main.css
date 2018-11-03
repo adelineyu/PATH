@@ -78,3 +78,14 @@ html, body {
 #target {
     width: 345px;
 }
+
+.sidebar {
+    width: 400px;
+    z-index: 99;
+    height: 100%;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+}

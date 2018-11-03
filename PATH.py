@@ -5,6 +5,7 @@ from app import app
 # in command line
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
+from model import PathObject
 
 session = Session(server_token='ZaorUL2L_CCILlRtjHBrLz93-hTPIIBJHExq4C5m')
 client = UberRidesClient(session)
