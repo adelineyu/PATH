@@ -17,3 +17,8 @@ def price_estimate(slat, slong, elat, elong, seats):
         end_longitude=-elong,
         seat_count=seats
     )
+    prices = response.json.get("prices")
+    return prices
+
+print("hello")
+print(price_estimate(37.770,-122.411,37.791,-122.405,2))
