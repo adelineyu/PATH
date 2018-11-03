@@ -38,6 +38,3 @@ def get_trip_estimate(slat, slong, elat, elong):
     # dist = json.get('distance')
 
     return trip_info('uberx', avg, time)
-
-print("hello")
-print(get_trip_estimate(37.770,-122.411,37.791,-122.405))
