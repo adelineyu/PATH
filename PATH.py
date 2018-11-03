@@ -1,25 +1,41 @@
 from app import app
-
-# before running this file, run
-#   pip install uber-rides
-# in command line
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
 from model import PathObject
 
+from collections import namedtuple
+import requests
+
+trip_info = namedtuple("Info", "option cost duration")
+
 session = Session(server_token='ZaorUL2L_CCILlRtjHBrLz93-hTPIIBJHExq4C5m')
 client = UberRidesClient(session)
 
-def price_estimate(slat, slong, elat, elong, seats):
-    response = client.get_price_estimates(
-        start_latitude=slat,
-        start_longitude=-slong,
-        end_latitude=elat,
-        end_longitude=-elong,
-        seat_count=seats
-    )
-    prices = response.json.get("prices")
-    return prices
+def get_json_data(slat, slong, elat, elong):
 
-print("hello")
-print(price_estimate(37.770,-122.411,37.791,-122.405,2))
+    headers = {'Authorization': 'Token ZaorUL2L_CCILlRtjHBrLz93-hTPIIBJHExq4C5m',
+    'Accept-Language': 'en_US',
+    'Content-Type': 'application/json'
+    }
+
+    resp = requests.get(
+    'https://api.uber.com/v1.2/estimates/price?start_latitude=' + str(slat)
+    + '&start_longitude=' + str(slong)
+    + '&end_latitude=' + str(elat)
+    + '&end_longitude=' + str(elong),
+    headers=headers
+    )
+
+    # returns price data for UberX
+    return resp.json().get('prices')[7]
+
+def get_trip_estimate(slat, slong, elat, elong):
+
+    json = get_json_data(slat, slong, elat, elong)
+    low = json.get('low_estimate')
+    high = json.get('high_estimate')
+    avg = (low + high)/2
+    time = json.get('duration') / 60
+    # dist = json.get('distance')
+
+    return trip_info('uberx', avg, time)
