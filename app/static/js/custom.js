@@ -1,5 +1,5 @@
 // This example adds a search box to a map, using the Google Place Autocomplete
-// feature. People can enter geographical searches. The search box will return a
+// feature. People can enter geographical searches. The search box will return ab
 // pick list containing a mix of places and predicted search terms.
 
 // This example requires the Places library. Include the libraries=places
@@ -25,21 +25,18 @@ map.addListener('bounds_changed', function() {
     searchBoxTo.setBounds(map.getBounds());
 });
 
-var markers = [];
+var markerFrom;
+var markerTo;
 // Listen for the event fired when the user selects a prediction and retrieve
 // more details for that place.
 searchBoxFrom.addListener('places_changed', function() {
     var places = searchBoxFrom.getPlaces();
 
     if (places.length == 0) {
-    return;
+        return;
     }
 
-    // Clear out the old markers.
-    markers.forEach(function(marker) {
-    marker.setMap(null);
-    });
-    markers = [];
+    markerFrom.setMap(null);
 
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
@@ -57,12 +54,12 @@ searchBoxFrom.addListener('places_changed', function() {
     };
 
     // Create a marker for each place.
-    markers.push(new google.maps.Marker({
+    markerFrom = new google.maps.Marker({
         map: map,
         icon: icon,
         title: place.name,
         position: place.geometry.location
-    }));
+    });
 
     if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -73,20 +70,17 @@ searchBoxFrom.addListener('places_changed', function() {
     });
     map.fitBounds(bounds);
 });
+
 // Listen for the event fired when the user selects a prediction and retrieve
 // more details for that place.
 searchBoxTo.addListener('places_changed', function() {
     var places = searchBoxTo.getPlaces();
 
     if (places.length == 0) {
-    return;
+        return;
     }
 
-    // Clear out the old markers.
-    markers.forEach(function(marker) {
-    marker.setMap(null);
-    });
-    markers = [];
+    markerTo.setMap(null) = null;
 
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
@@ -104,12 +98,12 @@ searchBoxTo.addListener('places_changed', function() {
     };
 
     // Create a marker for each place.
-    markers.push(new google.maps.Marker({
+    markersTo = new google.maps.Marker({
         map: map,
         icon: icon,
         title: place.name,
         position: place.geometry.location
-    }));
+    });
 
     if (place.geometry.viewport) {
         // Only geocodes have viewport.
