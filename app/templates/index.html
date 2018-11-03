@@ -20,11 +20,19 @@
   </head>
 
   <body>
-
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <aside class="sidebar">
+      <h1 class="uk-heading-line">Path.</h1>
+      <form class="uk-form">
+          <div class="uk-margin" uk-margin>
+              <input id="pac-input-from" class="uk-input uk-margin-small-bottom .uk-width-2-3" type="text" placeholder="From destination">
+              <button class="uk-button">Locate Me</button>
+          </div>
+        <input id="pac-input-to" class="uk-input uk-margin-small-bottom" type="text" placeholder="To destination">
+        <input class="uk-range" type="range">
+        <button class="uk-button uk-button-primary">Find</button>
+      </form>
+    </aside>
     <div id="map"></div>
-    <form><input class="uk-range" type="range"></form>
-
     <script src="custom.js"></script>
 
   </body>
