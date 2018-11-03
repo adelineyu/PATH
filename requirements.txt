@@ -4,5 +4,5 @@ itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.0
 Werkzeug==0.14.1
-uber-rides==0.6.0
+uber_rides==0.6.0
 requests==2.20.0
