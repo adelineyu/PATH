@@ -1,7 +1,11 @@
 from app import app
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
+
+from collections import namedtuple
 import requests
+
+trip_info = namedtuple("Info", "option cost duration")
 
 session = Session(server_token='ZaorUL2L_CCILlRtjHBrLz93-hTPIIBJHExq4C5m')
 client = UberRidesClient(session)
@@ -24,5 +28,16 @@ def get_json_data(slat, slong, elat, elong):
     # returns price data for UberX
     return resp.json().get('prices')[7]
 
+def get_trip_estimate(slat, slong, elat, elong):
+
+    json = get_json_data(slat, slong, elat, elong)
+    low = json.get('low_estimate')
+    high = json.get('high_estimate')
+    avg = (low + high)/2
+    time = json.get('duration') / 60
+    # dist = json.get('distance')
+
+    return trip_info('uberx', avg, time)
+
 print("hello")
-print(get_json_data(37.770,-122.411,37.791,-122.405))
+print(get_trip_estimate(37.770,-122.411,37.791,-122.405))
